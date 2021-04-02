@@ -1,11 +1,9 @@
-import React from 'react'
-
+import styles from './App.scss'
 function App() {
   return (
-    <div className="App">
-      哈哈啊
+    <div className={styles.appWrapper}>
+      <span className={styles.label}>App.scss</span>
     </div>
   );
 }
-
 export default App;
