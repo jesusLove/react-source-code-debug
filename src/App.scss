@@ -3,4 +3,13 @@
   height: 100vh;
   box-sizing: border-box;
   background-color: papayawhip;
+  display: flex;
+  .sideWrapper {
+    width: 25%;
+    background-color: antiquewhite;
+  }
+  .contentWrapper {
+    flex: 1;
+    margin-left: 10px;
+  }
 }

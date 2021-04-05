@@ -10,7 +10,7 @@
 import type {Wakeable, Thenable} from 'shared/ReactTypes';
 
 import {REACT_LAZY_TYPE} from 'shared/ReactSymbols';
-
+// 四种状态：未初始化、Pending、完成、失败。
 const Uninitialized = -1;
 const Pending = 0;
 const Resolved = 1;
@@ -49,16 +49,22 @@ export type LazyComponent<T, P> = {
 };
 
 function lazyInitializer<T>(payload: Payload<T>): T {
+  // 未初始化状态
   if (payload._status === Uninitialized) {
+    // 获取传入的函数
     const ctor = payload._result;
+    // 执行函数，将结果赋值给 thenable
+    // 此时 thenable 是一个 Promise，import(./x.js) 返回一个 Promise
     const thenable = ctor();
     // Transition to the next state.
+    // 进入下一个状态 Pending
     const pending: PendingPayload = (payload: any);
     pending._status = Pending;
     pending._result = thenable;
     thenable.then(
       moduleObject => {
         if (payload._status === Pending) {
+          // 读取值，就是组件
           const defaultExport = moduleObject.default;
           if (__DEV__) {
             if (defaultExport === undefined) {
@@ -73,6 +79,7 @@ function lazyInitializer<T>(payload: Payload<T>): T {
             }
           }
           // Transition to the next state.
+          // 下一个状态，Resolved 
           const resolved: ResolvedPayload<T> = (payload: any);
           resolved._status = Resolved;
           resolved._result = defaultExport;
@@ -88,6 +95,7 @@ function lazyInitializer<T>(payload: Payload<T>): T {
       },
     );
   }
+  // 如果已经是完成状态，直接读取 result 中的组件渲染即可。
   if (payload._status === Resolved) {
     return payload._result;
   } else {
@@ -103,7 +111,6 @@ export function lazy<T>(
     _status: -1,
     _result: ctor,
   };
-
   const lazyType: LazyComponent<T, Payload<T>> = {
     $$typeof: REACT_LAZY_TYPE,
     _payload: payload,
