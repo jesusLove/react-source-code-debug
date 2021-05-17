@@ -77,6 +77,7 @@ function mapIntoArray(
   nameSoFar: string,
   callback: (?React$Node) => ?ReactNodeList,
 ): number {
+  // children 类型：单个节点直接调用 callback
   const type = typeof children;
 
   if (type === 'undefined' || type === 'boolean') {
