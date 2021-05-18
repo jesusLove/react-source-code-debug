@@ -56,8 +56,9 @@ import {ConcurrentRoot, LegacyRoot} from 'react-reconciler/src/ReactRootTags';
 function ReactDOMRoot(container: Container, options: void | RootOptions) {
   this._internalRoot = createRootImpl(container, ConcurrentRoot, options);
 }
-
+// render -> options: underfined
 function ReactDOMLegacyRoot(container: Container, options: void | RootOptions) {
+  // legacyRoot: 0
   this._internalRoot = createRootImpl(container, LegacyRoot, options);
 }
 
@@ -125,7 +126,8 @@ function createRootImpl(
     options != null && options.unstable_strictModeLevel != null
       ? options.unstable_strictModeLevel
       : null;
-
+  // 创建一个 FiberRoot
+  // render: tag: 0, hydrate: false,
   const root = createContainer(
     container,
     tag,
@@ -160,7 +162,7 @@ export function createRoot(
   warnIfReactDOMContainerInDEV(container);
   return new ReactDOMRoot(container, options);
 }
-
+// 创建 Root 
 export function createLegacyRoot(
   container: Container,
   options?: RootOptions,

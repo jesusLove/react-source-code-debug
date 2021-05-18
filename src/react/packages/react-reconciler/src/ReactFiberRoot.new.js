@@ -29,16 +29,21 @@ import {unstable_getThreadID} from 'scheduler/tracing';
 import {initializeUpdateQueue} from './ReactUpdateQueue.new';
 import {LegacyRoot, ConcurrentRoot} from './ReactRootTags';
 
+// 
 function FiberRootNode(containerInfo, tag, hydrate) {
   this.tag = tag;
+  // root 结点：render 的第二个参数
   this.containerInfo = containerInfo;
+  // 只在持久化更新中会用到,不支持增量更新的平台，react-dom 不会用到
   this.pendingChildren = null;
+  // 当前应用对应的 Fiber 对象，是 Root Fiber
   this.current = null;
   this.pingCache = null;
   this.finishedWork = null;
   this.timeoutHandle = noTimeout;
   this.context = null;
   this.pendingContext = null;
+  // 第一次渲染时，是否需要融合
   this.hydrate = hydrate;
   this.callbackNode = null;
   this.callbackPriority = NoLane;
@@ -104,6 +109,7 @@ export function createFiberRoot(
   // Cyclic construction. This cheats the type system right now because
   // stateNode is any.
   const uninitializedFiber = createHostRootFiber(tag, strictModeLevelOverride);
+  // 指向 Fiber
   root.current = uninitializedFiber;
   uninitializedFiber.stateNode = root;
 

@@ -241,7 +241,16 @@ function findHostInstanceWithWarning(
   }
   return findHostInstance(component);
 }
-
+// * 内部调用 createFiberRoot 方法
+/**
+ * render 方法
+ * @param {*} containerInfo 容器信息
+ * @param {*} tag 0
+ * @param {*} hydrate false
+ * @param {*} hydrationCallbacks null 
+ * @param {*} strictModeLevelOverride null
+ * @returns 
+ */
 export function createContainer(
   containerInfo: Container,
   tag: RootTag,

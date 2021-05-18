@@ -109,14 +109,17 @@ function shouldHydrateDueToLegacyHeuristic(container) {
     rootElement.hasAttribute(ROOT_ATTRIBUTE_NAME)
   );
 }
-
+// 创建 FiberRoot 对象
 function legacyCreateRootFromDOMContainer(
   container: Container,
   forceHydrate: boolean,
 ): RootType {
+  // render 传入的 false，调用后面的函数。
+  // hydrate 传入 true。服务端渲染使用到。
   const shouldHydrate =
     forceHydrate || shouldHydrateDueToLegacyHeuristic(container);
   // First clear any existing content.
+  // 没有服务器渲染：清空 container 中的结点
   if (!shouldHydrate) {
     let warned = false;
     let rootSibling;
@@ -252,7 +255,8 @@ export function findDOMNode(
   }
   return findHostInstance(componentOrElement);
 }
-
+// * 服务器渲染是使用，与 Render 的区别调用 legacyRenderSubtreeIntoContainer 的 forceHydrate 为 true。
+// * forceHydrate 作用，调和节点
 export function hydrate(
   element: React$Node,
   container: Container,

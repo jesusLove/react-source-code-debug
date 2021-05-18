@@ -108,29 +108,44 @@ if (__DEV__) {
 let debugCounter = 1;
 
 function FiberNode(
+  
   tag: WorkTag,
   pendingProps: mixed,
   key: null | string,
   mode: TypeOfMode,
 ) {
   // Instance
+  // * 标记不同组件类型
   this.tag = tag;
+  // * ReactElement 里面的 key
   this.key = key;
+  // * ReactElement.type 也就是 createElement 的第一个参数。
   this.elementType = null;
+  // * 异步组件 resolved 之后返回的内容，一般是 function 或 class
   this.type = null;
+  // * 与当前 Fiber 相关的本地状态（浏览器中是 DOM 节点） 
   this.stateNode = null;
 
   // Fiber
+  // 串联结点
+  // * 指向父节点
   this.return = null;
+  // * 第一个子节点，单链表结构。
   this.child = null;
+  // * 指向兄弟节点
   this.sibling = null;
   this.index = 0;
 
+  // * ref 属性
   this.ref = null;
 
+  // * 新的变更带来的新的 props
   this.pendingProps = pendingProps;
+  // * 上一次更新结束后的 props
   this.memoizedProps = null;
+  // * 该 Fiber 对应的组件产生的 Update 会存放在这个队列里面。
   this.updateQueue = null;
+  // * 上一次渲染是的 state
   this.memoizedState = null;
   this.dependencies = null;
 
