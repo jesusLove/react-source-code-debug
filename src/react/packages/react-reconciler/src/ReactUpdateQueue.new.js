@@ -196,16 +196,25 @@ export function cloneUpdateQueue<State>(
     workInProgress.updateQueue = clone;
   }
 }
-
+// ? Update 记录组件的改变，存在 UpdateQueue 中
 export function createUpdate(eventTime: number, lane: Lane): Update<*> {
   const update: Update<*> = {
+    // * 事件时间
     eventTime,
+    // * 优先级
     lane,
-
+    /*
+    * export const UpdateState = 0;
+    * export const ReplaceState = 1;
+    * export const ForceUpdate = 2;
+    * export const CaptureUpdate = 3;
+    */
     tag: UpdateState,
+    // * 更新内容，比如 `setState` 接收的第一个参数
     payload: null,
+    // * 对应的回调，`setState`, `Render`都有
     callback: null,
-
+    // * 指向下一个更新，链接 Update 单链表结构 
     next: null,
   };
   return update;
