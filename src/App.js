@@ -3,7 +3,6 @@ import styles from './App.scss'
 import { Switch, Route, Link } from 'react-router-dom'
 import SuspenseDemo from './apis/suspense/index'
 import HookDemo from './apis/hooks/index'
-import ChildrenDemo from './apis/children/index'
 const routes = [
   {
     title: 'Suspense Demo',
@@ -16,11 +15,6 @@ const routes = [
     path: '/hooks',
     main: HookDemo
   },
-  {
-    title: 'Children Demo',
-    path: '/children',
-    main: ChildrenDemo
-  }
 ]
 function App() {
   return <div className={styles.appWrapper}>
