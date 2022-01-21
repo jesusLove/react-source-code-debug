@@ -3208,6 +3208,7 @@ function remountFiber(
   }
 }
 
+// 进入当前 Fiber 节点，创建子 Fiber 节点
 function beginWork(
   current: Fiber | null,
   workInProgress: Fiber,
