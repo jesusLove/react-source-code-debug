@@ -1554,7 +1554,8 @@ function workLoopConcurrent() {
     performUnitOfWork(workInProgress);
   }
 }
-
+// 参数：当前已创建的 workInProgress fiber
+// 任务：创建下一个 Fiber 节点本赋值给 workInProgress,并将 workInProgress 与已创建 Fiber 节点连接起来构成 Fiber 树。
 function performUnitOfWork(unitOfWork: Fiber): void {
   // The current, flushed, state of this fiber is the alternate. Ideally
   // nothing should rely on this, but relying on it here means that we don't

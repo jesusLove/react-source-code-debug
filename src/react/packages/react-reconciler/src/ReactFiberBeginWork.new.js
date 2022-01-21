@@ -3232,7 +3232,7 @@ function beginWork(
       );
     }
   }
-
+  // update时，如果 current 存在，可以复用 current (上一次更新的 Fiber 节点)
   if (current !== null) {
     // TODO: The factoring of this block is weird.
     if (
@@ -3470,6 +3470,7 @@ function beginWork(
           break;
         }
       }
+      // 复用 current
       return bailoutOnAlreadyFinishedWork(current, workInProgress, renderLanes);
     } else {
       if ((current.flags & ForceUpdateForLegacySuspense) !== NoFlags) {
